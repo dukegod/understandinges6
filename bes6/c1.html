@@ -13,21 +13,17 @@
 	<script src="//cdn.bootcss.com/babel-core/5.8.23/browser.js"></script>
 	<script type="text/javascript" async defer>
 		'use strict';
-		let i = 88;
-		console.log('browerjs'+ i);
+		var options = {
+        repeat: true,
+        save: false
+    };
 
-		function showN(a){
-			console.log('message'+a);
-		}
+// later
 
-		for(let k= 0; k<= 9; k++){
-			console.log(k);
-			showN(k);
-		}
+var { repeat: localRepeat, save: localSave } = options;
 
-		for(var l=0; l<= 9; l++){
-			// console.log('var:'+ l);
-		}
+console.log(localRepeat);       // true
+console.log(localSave);         // false
 
 
 	</script>

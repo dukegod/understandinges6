@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en"> 
+<head>
+	<meta charset="utf-8">
+	<meta width="device-width">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>es6</title>
+</head>
+<body>
+
+
+
+	<script src="//cdn.bootcss.com/babel-core/5.8.23/browser.js"></script>
+	<script type="text/javascript" async defer>
+		// class.js
+'use strict';
+class Person{
+	constructor(name,age){
+		this.name= name;
+		this.age= age;
+	}
+	static live(){
+		console.log('enjoy life '+ this.name);
+	}
+
+	speak(){
+		console.log('person can speak language');
+	}
+	showInfo(){
+		console.log('name:'+this.name+':'+this.age);
+	}
+	fight(){
+		console.log('make love');
+	}
+
+}
+
+class American extends Person{
+	speak(){
+		console.log('American can speak american ');
+	}
+	fight(){
+		super.fight();
+	}
+}
+
+var p = new Person();
+p.name= 'lh';
+p.age= 90;
+p.speak();
+p.showInfo();
+Person.live();
+console.log('static');
+// p.live();
+
+
+
+var ap= new American();
+ap.speak();
+ap.fight();
+
+let i = 999;
+console.log('message'+ i);
+
+
+
+	</script>
+</body>
+</html> 
