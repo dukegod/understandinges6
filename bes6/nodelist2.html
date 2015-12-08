@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"> 
+<head>
+	<meta charset="utf-8">
+	<meta width="device-width">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>es6</title>
+</head>
+<body>
+
+<div id="f">ddd</div>
+<div id="f1">ddd1111</div>
+<div id="f2">ddd2</div>
+<div id="f3">ddd3</div>
+
+
+	<script src="https://cdn.bootcss.com/babel-core/6.1.18/browser.min.js"></script>
+	<script type="text/javascript" async defer>
+'use strict';
+var divs = document.getElementsByTagName("div");
+
+var _iteratorNormalCompletion = true;
+var _didIteratorError = false;
+var _iteratorError = undefined;
+
+try {
+    for (var _iterator = divs[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var div = _step.value;
+
+        console.log(div.id);
+    }
+} catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+} finally {
+    try {
+        if (!_iteratorNormalCompletion && _iterator["return"]) {
+            _iterator["return"]();
+        }
+    } finally {
+        if (_didIteratorError) {
+            throw _iteratorError;
+        }
+    }
+}
+
+
+	</script>
+</body>
+</html> 
