@@ -16,6 +16,10 @@ console.log(hu);
 
 class Person extends Human{
 	constructor (name, age){
+//  如果
+ // this.age = age;
+//  super(name);
+//  报错，还没有继承父类,this 
 		super(name);
 		this.age = age;
 	}

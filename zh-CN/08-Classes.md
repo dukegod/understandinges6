@@ -123,6 +123,14 @@ let obj = createObject(class {
 obj.sayHi();        // "Hi!"
 ```
 
+## Accessor Properties
 
+
+
+## 继承
+
+通过 extend 
+
+super 继承父类方法，创造父类的实例对象this（所以必须先调用super方法），然后再用子类的构造函数修改this
 
 
