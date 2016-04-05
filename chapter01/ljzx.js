@@ -9,11 +9,11 @@
 // };
 
 // let 
-'use strict';
-for(let k =0; k<5; k++){
-	setTimeout(function(){
-		console.log('k:'+k);
-	}, 0);
+'use strict'
+for (let k = 0; k < 5; k++) {
+  setTimeout(function () {
+    console.log('k:' + k);
+  }, 0);
 }
 
 

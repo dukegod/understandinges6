@@ -1,1 +1,12 @@
 Thumbs.db
+# webstorm
+*.idea
+.idea/dictionaries/hui.xml
+.idea/jsLibraryMappings.xml
+*.xml
+
+# babel js
+*.map
+*-compiled.js
+
+.DS_Store
