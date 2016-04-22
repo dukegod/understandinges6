@@ -30,7 +30,7 @@ console.log(person instanceof Object);      // true
 
 和他的语言的类定义相似。
 
-```js
+```
 class PersonClass {
 
     // equivalent of the PersonType constructor

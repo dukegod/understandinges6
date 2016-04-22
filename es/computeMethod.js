@@ -1,15 +1,18 @@
- var method = 'duke';
+var method = 'duke';
 
- class Foo {
- 	constructor(){}
- 	['call'+'me'](){
- 		console.log('call me ');
- 	}
- 	[method](){
- 		console.log('method duke ');
- 	}
- }
+class Foo {
+  constructor() {
+  }
 
- var foo = new Foo();
- console.log(foo.callme());
- console.log(foo.duke());
+  ['call' + 'me']() {
+    console.log('call me ');
+  }
+
+  [method]() {
+    console.log('method duke ');
+  }
+}
+
+var foo = new Foo();
+console.log(foo.callme());
+console.log(foo.duke());
