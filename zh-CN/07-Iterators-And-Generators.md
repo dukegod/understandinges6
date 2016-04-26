@@ -598,7 +598,7 @@ for(var kk of newite){
 ## Summary
 
 
-
+# [类型检测](http://zhuanlan.zhihu.com/p/20794401)
 
 
 
