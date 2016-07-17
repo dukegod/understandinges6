@@ -259,11 +259,11 @@ function add(first = second, second) {
     return first + second;
 }
 
-console.log(add(1, 1));     // 2
-console.log(add(1));        // throws error
+console.log(add(1, 1));         // 2
+console.log(add(undefined, 1)); // throws error
 ```
 
-The call to `add(1)` throws an error because `second` is defined after `first` and is therefore unavailable as a default value. To understand why that happens, it's important to revisit temporal dead zones.
+The call to `add(undefined, 1)` throws an error because `second` is defined after `first` and is therefore unavailable as a default value. To understand why that happens, it's important to revisit temporal dead zones.
 
 ### Default Parameter Value Temporal Dead Zone
 
@@ -442,7 +442,7 @@ b b
 
 The `arguments` object always correctly reflects the parameters that were passed into a function regardless of rest parameter usage.
 
-That's all you really need to know about rest parameters to get started using them. The next section continues the parameter discussion with the spread operator, which is closely related to rest parameters.
+That's all you really need to know about rest parameters to get started using them.
 
 
 ## Increased Capabilities of the Function Constructor
@@ -686,7 +686,7 @@ var person = new Person("Nicholas");
 var anotherPerson = new AnotherPerson("Nicholas");  // error!
 ```
 
-In this code, `new.target` must be `Person` in order to work correctly. When `new AnotherPerson("Nicholas")` is called, `new.target` is set to `AnotherPerson`, so the subsequent call to `Person.call(this, name)` will throw an error even though `new.target` is defined.
+In this code, `new.target` must be `Person` in order to work correctly. When `new AnotherPerson("Nicholas")` is called, the subsequent call to `Person.call(this, name)` will throw an error because `new.target` is `undefined` inside of the `Person` constructor (it was called without `new`).
 
 W> Warning: Using `new.target` outside of a function is a syntax error.
 
@@ -786,8 +786,8 @@ One of the most interesting new parts of ECMAScript 6 is the *arrow function*. A
 * **Cannot be called with `new`** - Arrow functions do not have a `[[Construct]]` method and therefore cannot be used as constructors. Arrow functions throw an error when used with `new`.
 * **No prototype** - since you can't use `new` on an arrow function, there's no need for a prototype. The `prototype` property of an arrow function doesn't exist.
 * **Can't change `this`** - The value of `this` inside of the function can't be changed. It remains the same throughout the entire lifecycle of the function.
-* **No `arguments` object** - Since arrow functions have no `arguments` binding, you must rely on named and rest parameters to access function arguments..
-* **No duplicate named arguments** - arrow functions cannot have duplicate named arguments in strict or nonstrict mode, as opposed to nonarrow functions that cannot have duplicate named arguments only in strict mode.
+* **No `arguments` object** - Since arrow functions have no `arguments` binding, you must rely on named and rest parameters to access function arguments.
+* **No duplicate named parameters** - arrow functions cannot have duplicate named parameters in strict or nonstrict mode, as opposed to nonarrow functions that cannot have duplicate named parameters only in strict mode.
 
 There are a few reasons for these differences. First and foremost, `this` binding is a common source of error in JavaScript. It's very easy to lose track of the `this` value inside a function, which can result in unintended program behavior, and arrow functions eliminate this confusion. Second, by limiting arrow functions to simply executing code with a single `this` value, JavaScript engines can more easily optimize these operations, unlike regular functions, which might be used as a constructor or otherwise modified.
 
