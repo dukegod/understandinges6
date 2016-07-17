@@ -807,11 +807,11 @@ In this example, a new promise is created within the fulfillment handler for `p1
 
 ## Responding to Multiple Promises
 
-Up to this point, each example in this chapter has dealt with responding to one promise at a time. Sometimes, however, you'll want to monitor the progress of multiple promises in order to determine the next action. ECMAScript 6 provides two methods that monitor multiple promises: `Promise.all()` and `Promise.race()`.
+`Promise.all()` and `Promise.race()`用来处理多个promise
 
 ### The Promise.all() Method
 
-The `Promise.all()` method accepts a single argument, which is an iterable (such as an array) of promises to monitor, and returns a promise that is resolved only when every promise in the iterable is resolved. The returned promise is fulfilled when every promise in the iterable is fulfilled, as in this example:
+`Promise.all()` 接受单一参数，通过遍历器监视promise的结果。当每一个promise都完成了才变为完成状态。
 
 ```js
 let p1 = new Promise(function(resolve, reject) {
@@ -836,9 +836,9 @@ p4.then(function(value) {
 });
 ```
 
-Each promise here resolves with a number. The call to `Promise.all()` creates promise `p4`, which is ultimately fulfilled when promises `p1`, `p2`, and `p3` are fulfilled. The result passed to the fulfillment handler for `p4` is an array containing each resolved value: 42, 43, and 44. The values are stored in the order the promises resolved, so you can match promise results to the promises that resolved to them.
+只有当每一个promise变为完成状态后，'p4'才装变为完成状态。结果将按照被处理的顺序被储存在promise中。
 
-If any promise passed to `Promise.all()` is rejected, the returned promise is immediately rejected without waiting for the other promises to complete:
+`Promise.all()`被拒绝则立即结束所有。
 
 ```js
 let p1 = new Promise(function(resolve, reject) {
@@ -861,13 +861,11 @@ p4.catch(function(value) {
 });
 ```
 
-In this example, `p2` is rejected with a value of 43. The rejection handler for `p4` is called immediately without waiting for `p1` or `p3` to finish executing (They do still finish executing; `p4` just doesn't wait.)
-
-The rejection handler always receives a single value rather than an array, and the value is the rejection value from the promise that was rejected. In this case, the rejection handler is passed 43 to reflect the rejection from `p2`.
+当有一个p2被拒绝，p4就结束继续执行，rejection获取的是单一的数值不是数组。
 
 ### The Promise.race() Method
 
-The `Promise.race()` method provides a slightly different take on monitoring multiple promises. This method also accepts an iterable of promises to monitor and returns a promise, but the returned promise is settled as soon as the first promise is settled. Instead of waiting for all promises to be fulfilled like the `Promise.all()` method, the `Promise.race()` method returns an appropriate promise as soon as any promise in the array is fulfilled. For example:
+主要有一个执行成功就返回成功状态。
 
 ```js
 let p1 = Promise.resolve(42);
@@ -887,7 +885,7 @@ p4.then(function(value) {
 });
 ```
 
-In this code, `p1` is created as a fulfilled promise while the others schedule jobs. The fulfillment handler for `p4` is then called with the value of 42 and ignores the other promises. The promises passed to `Promise.race()` are truly in a race to see which is settled first. If the first promise to settle is fulfilled, then the returned promise is fulfilled; if the first promise to settle is rejected, then the returned promise is rejected. Here's an example with a rejection:
+只要有一个被拒绝，整个过程就是拒绝的。
 
 ```js
 let p1 = new Promise(function(resolve, reject) {
@@ -907,11 +905,9 @@ p4.catch(function(value) {
 });
 ```
 
-Here, `p4` is rejected because `p2` is already in the rejected state when `Promise.race()` is called. Even though `p1` and `p3` are fulfilled, those results are ignored because they occur after `p2` is rejected.
-
 ### Asynchronous Task Running
 
-In Chapter 8, I introduced generators and showed you how you can use them for asynchronous task running, like this:
+我们可以创建一个异步程序如下：
 
 ```js
 let fs = require("fs");
@@ -1035,6 +1031,35 @@ A rejection handler stores any rejection results in an error object. The `task.t
 This `run()` function can run any generator that uses `yield` to achieve asynchronous code without exposing promises (or callbacks) to the developer. In fact, since the return value of the function call is always coverted into a promise, the function can even return something other than a promise. That means both synchronous and asynchronous methods work correctly when called using `yield`, and you never have to check that the return value is a promise.
 
 The only concern is ensuring that asynchronous functions like `readFile()` return a promise that correctly identifies its state. For Node.js built-in methods, that means you'll have to convert those methods to return promises instead of using callbacks.
+
+A> ### Future Asynchronous Task Running
+A>
+A> At the time of my writing, there is ongoing work around bringing a simpler syntax to asynchronous task running in JavaScript. Work is progressing on an `await` syntax that would closely mirror the promise-based example in the preceding section. The basic idea is to use a function marked with `async` instead of a generator and use `await` instead of `yield` when calling a function, such as:
+A>
+A> ```js
+A> (async function() {
+A>     let contents = await readFile("config.json");
+A>     doSomethingWith(contents);
+A>     console.log("Done");
+A> });
+A> ```
+A>
+A> The `async` keyword before `function` indicates that the function is meant to run in an asynchronous manner. The `await` keyword signals that the function call to `readFile("config.json")` should return a promise, and if it doesn't, the response should be wrapped in a promise. Just as with the implementation of `run()` in the preceding section, `await` will throw an error if the promise is rejected and otherwise return the value from the promise. The end result is that you get to write asynchronous code as if it were synchronous without the overhead of managing an iterator-based state machine.
+A>
+A> The `await` syntax is expected to be finalized in ECMAScript 2017 (ECMAScript 8).
+
+
+## Summary
+
+Promises are designed to improve asynchronous programming in JavaScript by giving you more control and composability over asynchronous operations than events and callbacks can. Promises schedule jobs to be added to the JavaScript engine's job queue for execution later, while a second job queue tracks promise fulfillment and rejection handlers to ensure proper execution.
+
+Promises have three states: pending, fulfilled, and rejected. A promise starts in a pending state and becomes fulfilled on a successful execution or rejected on a failure. In either case, handlers can be added to indicate when a promise is settled. The `then()` method allows you to assign a fulfillment and rejection handler and the `catch()` method allows you to assign only a rejection handler.
+
+You can chain promises together in a variety of ways and pass information between them. Each call to `then()` creates and returns a new promise that is resolved when the previous one is resolved. Such chains can be used to trigger responses to a series of asynchronous events. You can also use `Promise.race()` and `Promise.all()` to monitor the progress of multiple promises and respond accordingly.
+
+Asynchronous task running is easier when you combine generators and promises, as promises give a common interface that asynchronous operations can return. You can then use generators and the `yield` operator to wait for asynchronous responses and respond appropriately.
+
+Most new web APIs are being built on top of promises, and you can expect many more to follow suit in the future.
 
 
 
