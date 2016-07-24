@@ -10,5 +10,5 @@ console.log(localRepeat);
 console.log(localSave);
 
 
-// new style 
+// new style
 

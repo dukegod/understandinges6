@@ -12,7 +12,6 @@ class Human {
 var hu = new Human('duke').toString();
 console.log(hu);
 
-
 class Person extends Human {
   constructor(name, age) {
     super(name);
