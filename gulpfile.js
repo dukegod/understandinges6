@@ -23,7 +23,7 @@ gulp.task('clean',()=>{
 //     .pipe(gulp.dest('dist/'));
 // });
 
-var src = './src/**/*.js'
+const src = './src/**/*.js'
 
 gulp.task('babel',()=>{
   gulp.src(src)
