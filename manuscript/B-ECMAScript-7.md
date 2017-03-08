@@ -1,4 +1,4 @@
-# Understanding ECMAScript 7 (2016)
+# Appendix B: Understanding ECMAScript 7 (2016)
 
 The development of ECMAScript 6 took about four years, and after that, TC-39 decided that such a long development process was unsustainable. Instead, they moved to a yearly release cycle to ensure new language features would make it into development sooner.
 
@@ -89,7 +89,7 @@ Here, calling `values.includes()` returns `true` for the value of `1` and `false
 
 ### Value Comparison
 
-The value comparison performed by the `includes()` method uses the `===` operotor with one exception: `NaN` is considered equal to `NaN` even though `NaN === NaN` evaluates to `false`. This is different than the behavior of the `indexOf()` method, which strictly uses `===` for comparison. To see the difference, consider this code:
+The value comparison performed by the `includes()` method uses the `===` operator with one exception: `NaN` is considered equal to `NaN` even though `NaN === NaN` evaluates to `false`. This is different than the behavior of the `indexOf()` method, which strictly uses `===` for comparison. To see the difference, consider this code:
 
 ```js
 let values = [1, NaN, 2];
@@ -98,7 +98,7 @@ console.log(values.indexOf(NaN));       // -1
 console.log(values.includes(NaN));      // true
 ```
 
-The `values.indexOf()` method returns `-1` for `NaN` even though `NaN` is contained in the `values` array. On the other hand, `values.includes()` returns `true` for `NaN` because it uses a different value comparison operator used.
+The `values.indexOf()` method returns `-1` for `NaN` even though `NaN` is contained in the `values` array. On the other hand, `values.includes()` returns `true` for `NaN` because it uses a different value comparison operator.
 
 W> When you want to check just for the existence of a value in an array and don't need to know the index , I recommend using `includes()` because of the difference in how `NaN` is treated by the `includes()` and `indexOf()` methods. If you do need to know where in the array a value exists, then you have to use the `indexOf()` method.
 
@@ -152,6 +152,6 @@ function notOkay2({ first, second }) {
 }
 ```
 
-You can still use `"use strict"` with simple parameter lists, which is why `okay()` works as you would expect (the same as it would in ECMAScript 5). The `notOkay1()` function is a syntax error because you can no longer use `"use strict"` in functions with default parameter values. Similarly, the `notOkay2()` function is a syntax error because you can't use `"use strict" in a function with destructured parameters.
+You can still use `"use strict"` with simple parameter lists, which is why `okay()` works as you would expect (the same as it would in ECMAScript 5). The `notOkay1()` function is a syntax error because you can no longer use `"use strict"` in functions with default parameter values. Similarly, the `notOkay2()` function is a syntax error because you can't use `"use strict"` in a function with destructured parameters.
 
 Overall, this change removes both a point of confusion for JavaScript developers and an implementation problem for JavaScript engines.

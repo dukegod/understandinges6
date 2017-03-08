@@ -569,10 +569,12 @@ var person = {
 
 console.log(doSomething.name);      // "doSomethingElse"
 console.log(person.sayName.name);   // "sayName"
-console.log(person.firstName.name); // "get firstName"
+
+var descriptor = Object.getOwnPropertyDescriptor(person, "firstName");
+console.log(descriptor.get.name); // "get firstName"
 ```
 
-In this example, `doSomething.name` is `"doSomethingElse"` because the function expression itself has a name, and that name takes priority over the variable to which the function was assigned. The `name` property of `person.sayName()` is `"sayName"`, as the value was interpreted from the object literal. Similarly, `person.firstName` is actually a getter function, so its name is `"get firstName"` to indicate this difference. Setter functions are prefixed with `"set"` as well.
+In this example, `doSomething.name` is `"doSomethingElse"` because the function expression itself has a name, and that name takes priority over the variable to which the function was assigned. The `name` property of `person.sayName()` is `"sayName"`, as the value was interpreted from the object literal. Similarly, `person.firstName` is actually a getter function, so its name is `"get firstName"` to indicate this difference. Setter functions are prefixed with `"set"` as well. (Both getter and setter functions must be retrieved using `Object.getOwnPropertyDescriptor()`.)
 
 There are a couple of other special cases for function names, too. Functions created using `bind()` will have their names prefixed with `"bound"` and functions created using the `Function` constructor have a name of `"anonymous"`, as in this example:
 
@@ -610,7 +612,7 @@ When creating `notAPerson`, calling `Person()` without `new` results in `undefin
 
 JavaScript has two different internal-only methods for functions: `[[Call]]` and `[[Construct]]`. When a function is called without `new`, the `[[Call]]` method is executed, which executes the body of the function as it appears in the code. When a function is called with `new`, that's when the `[[Construct]]` method is called. The `[[Construct]]` method is responsible for creating a new object, called the *new target*, and then executing the function body with `this` set to the new target. Functions that have a `[[Construct]]` method are called *constructors*.
 
-I> Keep in mind that not all functions have `[[Construct]]`, and therefore not all functions can be called with `new`. Arrow functions, discussed in the "Section Name" section on page xx, do not have a `[[Construct]]` method.
+I> Keep in mind that not all functions have `[[Construct]]`, and therefore not all functions can be called with `new`. Arrow functions, discussed in the "Arrow Functions" section, do not have a `[[Construct]]` method.
 
 ### Determining How a Function was Called in ECMAScript 5
 
@@ -671,7 +673,7 @@ You can also check that `new.target` was called with a specific constructor. For
 
 ```js
 function Person(name) {
-    if (typeof new.target === Person) {
+    if (new.target === Person) {
         this.name = name;   // using new
     } else {
         throw new Error("You must use new with Person.")
@@ -965,7 +967,7 @@ var PageHandler = {
 
 Now the code works as expected, but it may look a little bit strange. By calling `bind(this)`, you're actually creating a new function whose `this` is bound to the current `this`, which is `PageHandler`. To avoid creating an extra function, a better way to fix this code is to use an arrow function.
 
-Arrow functions have no `this` binding, which means the value of `this` inside an arrow function can only be determined by looking up the scope chain. If the arrow function is contained within a nonarrow function, `this` will be the same as the containing function; otherwise, `this` is undefined. Here's one way you could write this code using an arrow function:
+Arrow functions have no `this` binding, which means the value of `this` inside an arrow function can only be determined by looking up the scope chain. If the arrow function is contained within a nonarrow function, `this` will be the same as the containing function; otherwise, `this` is equivalent to the value of `this` in the global scope. Here's one way you could write this code using an arrow function:
 
 ```js
 var PageHandler = {

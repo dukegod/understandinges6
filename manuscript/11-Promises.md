@@ -245,7 +245,7 @@ Keep in mind that the executor runs immediately when `readFile()` is called. Whe
 // add this function to the job queue after 500ms have passed
 setTimeout(function() {
     console.log("Timeout");
-}, 500)
+}, 500);
 
 console.log("Hi!");
 ```
@@ -539,13 +539,13 @@ window.onunhandledrejection = function(event) {
     console.log(event.type);                    // "unhandledrejection"
     console.log(event.reason.message);          // "Explosion!"
     console.log(rejected === event.promise);    // true
-});
+};
 
 window.onrejectionhandled = function(event) {
     console.log(event.type);                    // "rejectionhandled"
     console.log(event.reason.message);          // "Explosion!"
     console.log(rejected === event.promise);    // true
-});
+};
 
 rejected = Promise.reject(new Error("Explosion!"));
 ```

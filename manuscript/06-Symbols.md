@@ -74,7 +74,7 @@ console.log(person[firstName]);     // "Nicholas"
 console.log(person[lastName]);      // "Zakas"
 ```
 
-This example first uses a computed object literal property to create the `firstName` symbol property. The property is created as nonenumerable, which is different from computed properties created using nonsymbol names. The following line then sets the property to be read-only. Later, a read-only `lastName` symbol property is created using the `Object.defineProperties()` method. A computed object literal property is used once again, but this time, it's part of the second argument to the `Object.defineProperties()` call.
+This example first uses a computed object literal property to create the `firstName` symbol property. The following line then sets the property to be read-only. Later, a read-only `lastName` symbol property is created using the `Object.defineProperties()` method. A computed object literal property is used once again, but this time, it's part of the second argument to the `Object.defineProperties()` call.
 
 While symbols can be used in any place that computed property names are allowed, you'll need to have a system for sharing these symbols between different pieces of code in order to use them effectively.
 
@@ -211,7 +211,7 @@ I> Overwriting a method defined with a well-known symbol changes an ordinary obj
 
 ### The Symbol.hasInstance Property
 
-Every function has a `Symbol.hasInstance` method that determines whether or not a given object is an instance of that function. The method is defined on `Function.prototype` so that all functions inherit the default behavior for the `instanceof` property. The `Symbol.hasInstance` property itself is defined as nonwritable and nonconfigurable as well as nonenumerable, to ensure it doesn't get overwritten by mistake.
+Every function has a `Symbol.hasInstance` method that determines whether or not a given object is an instance of that function. The method is defined on `Function.prototype` so that all functions inherit the default behavior for the `instanceof` property and the method is nonwritable and nonconfigurable as well as nonenumerable, to ensure it doesn't get overwritten by mistake.
 
 The `Symbol.hasInstance` method accepts a single argument: the value to check. It returns true if the value passed is an instance of the function. To understand how `Symbol.hasInstance` works, consider the following code:
 
@@ -308,10 +308,10 @@ let collection = {
 let messages = [ "Hi" ].concat(collection);
 
 console.log(messages.length);    // 3
-console.log(messages);           // ["hi","Hello","world"]
+console.log(messages);           // ["Hi","Hello","world"]
 ```
 
-The `collection` object in this example is set up to look like an array: it has a `length` property and two numeric keys. The `Symbol.isConcatSpreadable` property is set to `true` to indicate that the property values should be added as individual items to an array. When `collection` is passed to the `concat()` method, the resulting array has `"Hello"` and `"world"` as separate items after the `"hi"` element.
+The `collection` object in this example is set up to look like an array: it has a `length` property and two numeric keys. The `Symbol.isConcatSpreadable` property is set to `true` to indicate that the property values should be added as individual items to an array. When `collection` is passed to the `concat()` method, the resulting array has `"Hello"` and `"world"` as separate items after the `"Hi"` element.
 
 I> You can also set `Symbol.isConcatSpreadable` to `false` on array subclasses to prevent items from being separated by `concat()` calls. Subclassing is discussed in Chapter 8.
 
@@ -365,11 +365,11 @@ let match1 = message1.match(hasLengthOf10),
 console.log(match1);            // null
 console.log(match2);            // ["Hello John"]
 
-let replace1 = message1.replace(hasLengthOf10),
-    replace2 = message2.replace(hasLengthOf10);
+let replace1 = message1.replace(hasLengthOf10, "Howdy!"),
+    replace2 = message2.replace(hasLengthOf10, "Howdy!");
 
 console.log(replace1);          // "Hello world"
-console.log(replace2);          // "Hello John"
+console.log(replace2);          // "Howdy!"
 
 let search1 = message1.search(hasLengthOf10),
     search2 = message2.search(hasLengthOf10);
@@ -585,7 +585,7 @@ Array.prototype[Symbol.unscopables] = Object.assign(Object.create(null), {
     copyWithin: true,
     entries: true,
     fill: true,
-    find, true,
+    find: true,
     findIndex: true,
     keys: true,
     values: true
@@ -598,7 +598,7 @@ In general, you shouldn't need to define `Symbol.unscopables` for your objects u
 
 ## Summary
 
-Symbols are a new type of primitive value in JavaScript and are used to create nonenumerable properties that can't be accessed without referencing the symbol.
+Symbols are a new type of primitive value in JavaScript and are used to create properties that can't be accessed without referencing the symbol.
 
 While not truly private, these properties are harder to accidentally change or overwrite and are therefore suitable for functionality that needs a level of protection from developers.
 
