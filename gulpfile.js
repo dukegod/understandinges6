@@ -1,48 +1,20 @@
-let gulp = require('gulp');
-let babel = require('gulp-babel');
-let clean = require('gulp-clean');
+const gulp = require('gulp');
+const babel = require('gulp-babel');
+const clean = require('gulp-clean');
+const src = './src/**/*.js'
 
-
-// gulp.task('clean', function () {
-//   return gulp.src('dist', {read: false})
-//     .pipe(clean());
-// });
-
-
-gulp.task('clean',()=>{
-  gulp.src('dist', {read: false})
+gulp.task('clean', () => {
+  gulp.src('dist', { read: false })
       .pipe(clean());
 });
 
-
-// gulp.task('babel', function () {
-//   return gulp.src('./**/*.js')
-//     .pipe(babel({
-//       presets: ['es2015']
-//     }))
-//     .pipe(gulp.dest('dist/'));
-// });
-
-const src = './src/**/*.js'
-
-gulp.task('babel',()=>{
-  gulp.src(src)
-    .pipe(babel({
-      presets: ['es2015']
-    }))
-    .pipe(gulp.dest('./dist'));
+gulp.task('babel', () => {
+  gulp.src(src).pipe(babel({ presets: ['es2015'] }))
+      .pipe(gulp.dest('./dist'));
 });
 
-// gulp.task('watch', function() {
-//   gulp.watch('./**/*.js', ['babel']);
-// });
-
-gulp.task('watch', ()=>{
+gulp.task('watch', () => {
   gulp.watch(src, ['babel']);
 })
 
-
-gulp.task('default', ['babel','watch'])
-
-
-
+gulp.task('default', ['babel', 'watch'])
