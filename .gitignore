@@ -1,6 +1,7 @@
 Thumbs.db
 # webstorm
 *.idea
+.vscode
 .idea/dictionaries/hui.xml
 .idea/jsLibraryMappings.xml
 *.xml
