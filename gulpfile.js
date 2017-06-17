@@ -1,7 +1,8 @@
 const gulp = require('gulp');
 const babel = require('gulp-babel');
 const clean = require('gulp-clean');
-const src = './src/**/*.js'
+
+const src = './src/**/*.js';
 
 gulp.task('clean', () => {
   gulp.src('dist', { read: false })
@@ -15,6 +16,6 @@ gulp.task('babel', () => {
 
 gulp.task('watch', () => {
   gulp.watch(src, ['babel']);
-})
+});
 
-gulp.task('default', ['babel', 'watch'])
+gulp.task('default', ['babel', 'watch']);
