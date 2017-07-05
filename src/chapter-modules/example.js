@@ -28,3 +28,19 @@ function multiply(num1, num2) {
 
 // ...and then export it later
 export { multiply };
+
+
+class A{
+  constructor(x){
+    this.x = x;
+  }
+ showA (){
+    console.log('ddd', this.x);
+  }
+
+  static AA(){
+    console.log('static')
+  }
+}
+
+export { A }
