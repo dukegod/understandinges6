@@ -4,7 +4,7 @@ js的调用方式一直是一个有争议的地方。其他的语言都有包去
 
 ## 模块是什么？
 
-*模块*是js加载不同文件的方式。在语义上不同于script
+*模块* 是js加载不同文件的方式。在语义上不同于script
 
 1. Module code automatically runs in strict mode, and there's no way to opt-out of strict mode.
 1. Variables created in the top level of a module aren't automatically added to the shared global scope. They exist only within the top-level scope of the module.
