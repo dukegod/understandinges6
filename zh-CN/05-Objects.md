@@ -8,13 +8,13 @@ es提高了对象的用法，更加简单的语法，交互更加方便。
 
 es6 特别引入了一些术语帮助区分对象类别。js有太多的垃圾术语，例如在浏览器中执行。对象类别:
 
-**普通对象**是拥有所有的默认对象
+**普通对象** 是拥有所有的默认对象
 
 **外部对象** 内部的行为不同于默认对象
 
 **标准对象** es6新增的，如:数组，时间等等。可以是普通对象，也可以是外部对象。
 
-**内置对象**在js在执行的时候生成的对象。所有的标准对象都是构造对象
+**内置对象** 在js在执行的时候生成的对象。所有的标准对象都是构造对象
 
 ## 对象字面量
 
@@ -42,6 +42,7 @@ function createPerson(name, age) {
         age
     };
 }
+```
 
 ### 方法的简介化
 
@@ -263,7 +264,7 @@ W> The `__proto__` property is special in a number of ways:
 
 W> 1. 在字面量中只能定义一次。
 
-## super 
+## super
 
 如果你想重载一个对象实例上。在es5中：
 
@@ -345,7 +346,7 @@ console.log(relative.getGreeting());                // error!
 
 进一步的解释下，
 
-```js 
+```js
 let relative = {
     __proto__: friend,
     getGreeting() {
@@ -355,7 +356,7 @@ let relative = {
 ```
 relative.getGreeting() => Object.getPrototypeOf(this) 指向 friend.getGreeting.call(this)中 ‘this’ 指向 relative。并没有这个方法。所以报错。
 
-es6 
+es6
 
 ```js
 let person = {
@@ -444,11 +445,3 @@ getGlobalGreeting();                      // throws error
 `__proto__` property
 
 super
-
-
-
-
-
-
-
-
