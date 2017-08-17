@@ -19,3 +19,4 @@ gulp.task('watch', () => {
 });
 
 gulp.task('default', ['babel', 'watch']);
+
