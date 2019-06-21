@@ -200,7 +200,7 @@ This code imports the `add()` function using the *import name* and renames it to
 
 ## Default Values in Modules
 
-The module syntax is really optimized for exporting and importing default values from modules, as this pattern was quite common in other module systems, like CommonJS (another specification for using JavaScript outside the browser). The *default value* for a module is a single variable, function, or class as specified by the `default` keyword, and you can only set one default export per module. Using the `default` keyword with multiple exports is a syntax error.
+The module syntax is really optimized for exporting and importing default values from modules, as this pattern was quite common in other module systems, like CommonJS (another JavaScript module format popularized by Node.js). The *default value* for a module is a single variable, function, or class as specified by the `default` keyword, and you can only set one default export per module. Using the `default` keyword with multiple exports is a syntax error.
 
 ### Exporting Default Values
 
@@ -273,7 +273,7 @@ console.log(color);         // "red"
 
 The comma separates the default local name from the non-defaults, which are also surrounded by curly braces. Keep in mind that the default must come before the non-defaults in the `import` statement.
 
-As with exporting defaults, you can import defauts with the renaming syntax, too:
+As with exporting defaults, you can import defaults with the renaming syntax, too:
 
 ```js
 // equivalent to previous example

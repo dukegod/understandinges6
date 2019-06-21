@@ -195,11 +195,11 @@ The well-known symbols are:
 
 * `Symbol.hasInstance` - A method used by `instanceof` to determine an object's inheritance.
 * `Symbol.isConcatSpreadable` - A Boolean value indicating that `Array.prototype.concat()` should flatten the collection's elements if the collection is passed as a parameter to `Array.prototype.concat()`.
-* `Symbol.iterator` - A method that returns an iterator. (Iterators are covered in Chapter 7.)
+* `Symbol.iterator` - A method that returns an iterator. (Iterators are covered in Chapter 8.)
 * `Symbol.match` - A method used by `String.prototype.match()` to compare strings.
 * `Symbol.replace` - A method used by `String.prototype.replace()` to replace substrings.
 * `Symbol.search` - A method used by `String.prototype.search()` to locate substrings.
-* `Symbol.species` - The constructor for making derived objects. (Derived objects are covered in Chapter 8.)
+* `Symbol.species` - The constructor for making derived objects. (Derived objects are covered in Chapter 9.)
 * `Symbol.split` - A method used by `String.prototype.split()` to split up strings.
 * `Symbol.toPrimitive` - A method that returns a primitive value representation of an object.
 * `Symbol.toStringTag` - A string used by `Object.prototype.toString()` to create an object description.
@@ -443,7 +443,7 @@ Each of the log statements triggers a different `hint` argument value. The `+` o
 
 ### The Symbol.toStringTag Symbol
 
-One of the most interesting problems in JavaScript has been the availability of multiple global execution environments. This occurs in web browsers when a page includes an iframe, as the page and the iframe each have their own execution environments. In most cases, this isn't a problem, as data can be passed back and forth between the environments with little cause for concern. The problem arises when trying to identify what type of object you're dealing with after the object has been passed between different objects.
+One of the most interesting problems in JavaScript has been the availability of multiple global execution environments. This occurs in web browsers when a page includes an iframe, as the page and the iframe each have their own execution environments. In most cases, this isn't a problem, as data can be passed back and forth between the environments with little cause for concern. The problem arises when trying to identify what type of object you're dealing with after the object has been passed between different environments.
 
 The canonical example of this issue is passing an array from an iframe into the containing page or vice-versa. In ECMAScript 6 terminology, the iframe and the containing page each represent a different *realm* which is an execution environment for JavaScript. Each realm has its own global scope with its own copy of global objects. In whichever realm the array is created, it is definitely an array. When it's passed to a different realm, however, an `instanceof Array` call returns `false` because the array was created with a constructor from a different realm and `Array` represents the constructor in the current realm.
 
